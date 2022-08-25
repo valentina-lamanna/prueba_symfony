@@ -1,0 +1,61 @@
+ARG DEBIAN_VERSION=10.9-slim
+FROM debian:${DEBIAN_VERSION}
+ARG PHP_VERSION=7.4
+
+USER root
+
+RUN apt-get update --fix-missing
+RUN apt-get install -y apache2 \
+  lsb-release \
+  apt-transport-https \
+  ca-certificates wget
+
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php${PHP_VERSION}.list
+
+RUN apt-get update --fix-missing
+
+RUN apt-get -y install php${PHP_VERSION} \
+  php${PHP_VERSION}-cli \
+  php${PHP_VERSION}-fpm \
+  php${PHP_VERSION}-json \
+  php${PHP_VERSION}-pdo \
+  php${PHP_VERSION}-mysql \
+  php${PHP_VERSION}-zip \
+  php${PHP_VERSION}-gd \
+  php${PHP_VERSION}-mbstring \
+  php${PHP_VERSION}-curl \
+  php${PHP_VERSION}-ldap \
+  php${PHP_VERSION}-xml \
+  php${PHP_VERSION}-bcmath \
+  php${PHP_VERSION}-json \
+  libapache2-mod-php${PHP_VERSION} \
+  php${PHP_VERSION}-xmlrpc \
+  php${PHP_VERSION}-intl \
+  php${PHP_VERSION}-soap \
+  php${PHP_VERSION}-mcrypt \
+  libodbc1 \
+  unixodbc-dev \
+  tdsodbc \
+  odbcinst \
+  freetds-dev
+
+# Agregan configs personalizadas de php y freetds --> sacado de Dockerfile5 de phabricator
+#COPY php/* /usr/local/etc/php/conf.d/
+COPY tds/freetds.conf /etc/freetds/freetds.conf
+COPY tds/odbc.ini /etc/odbc.ini
+COPY tds/odbcinst.ini /etc/odbcinst.ini
+
+RUN a2enconf php${PHP_VERSION}-fpm & phpenmod mcrypt & service apache2 restart
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN ln -fs /usr/share/zoneinfo/America/Argentina/Buenos_Aires /etc/localtime
+RUN dpkg-reconfigure -f noninteractive tzdata
+
+RUN apt-get update --fix-missing
+
+RUN a2enmod headers rewrite proxy_fcgi setenvif
+
+WORKDIR /var/www
+RUN chown -R www-data:www-data /var/www
+CMD apachectl -D FOREGROUND

@@ -1,0 +1,12 @@
+version: '3'
+
+networks:
+  web:
+    external:
+      name: traefik_webgateway
+
+services:
+  symfony:
+    image: symfony:4.4.23
+    networks:
+      - web

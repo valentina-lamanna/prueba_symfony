@@ -1,0 +1,15 @@
+ARG NODE_VERSION=14
+
+FROM node:${NODE_VERSION}
+
+WORKDIR /usr/src/www/
+
+RUN npx create-react-app react-base
+
+USER root
+
+COPY site.conf /etc/apache2/sites-enabled/000-default.conf
+
+RUN service apache2 restart
+
+EXPOSE 80

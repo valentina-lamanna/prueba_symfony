@@ -1,0 +1,58 @@
+version: '3'
+
+networks:
+  backend:
+
+services:
+  symfony:
+    image: symfony:5.4.11
+    container_name: symfony
+    labels:
+      - "traefik.backend=symfony"
+      - "traefik.frontend.rule=Host:symfony-dev.frba.utn.edu.ar"
+      - "traefik.docker.network=traefik_webgateway"
+    environment:
+      DB_HOST: symfony-db
+      DB_USER: dev
+      DB_PASSWORD: asd123
+      DATABASE_URL_DOCKER: "mysql://dev:asd123@symfony-db:3306/symfony"
+    volumes:
+      - ./symfony/src/Controller:/var/www/html/symfony/src/Controller
+      - ./symfony/src/Entity:/var/www/html/symfony/src/Entity
+      - ./symfony/src/Form:/var/www/html/symfony/src/Form
+      - ./symfony/src/Repository:/var/www/html/symfony/src/Repository
+      - ./symfony/src/Security:/var/www/html/symfony/src/Security
+      #- ./symfony/config/packages/doctrine.yaml:/var/www/html/symfony/config/packages/doctrine.yaml
+    networks:
+      - backend
+
+  symfony-db:
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: asd123
+      MYSQL_ROOT_PASSWORD: asd123
+    ports: [ "5432:3306" ]
+    expose: [ "3306" ]
+    networks:
+      - backend
+
+  reactjs:
+    image: reactjs-dev
+    container_name: reactjs
+    environment:
+      PORT: 80
+    working_dir: /usr/src/www/react-base
+    entrypoint: "npm start"
+    labels:
+      - "traefik.backend=react"
+      - "traefik.frontend.rule=Host:react-dev.frba.utn.edu.ar"
+      - "traefik.docker.network=traefik_webgateway"
+      - "traefik.frontend.redirect.entryPoint=https"
+    networks:
+      - web
+      - backend
+    volumes:
+      - ./react-base/src:/usr/src/www/react-base/src
+      - ./react-base/public:/usr/src/www/react-base/public
