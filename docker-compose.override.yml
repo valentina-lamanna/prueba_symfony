@@ -22,7 +22,7 @@ services:
       - ./symfony/src/Form:/var/www/html/symfony/src/Form
       - ./symfony/src/Repository:/var/www/html/symfony/src/Repository
       - ./symfony/src/Security:/var/www/html/symfony/src/Security
-      #- ./symfony/config/packages/doctrine.yaml:/var/www/html/symfony/config/packages/doctrine.yaml
+      - ./symfony/config/packages/doctrine.yaml:/var/www/html/symfony/config/packages/doctrine.yaml/
     networks:
       - backend
 

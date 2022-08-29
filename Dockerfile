@@ -24,7 +24,7 @@ RUN composer create-project symfony/skeleton symfony "~${SYMFONY_VERSION}"
 
 WORKDIR symfony
 
-RUN composer -n require annotations symfony/apache-pack symfony/security-bundle symfony/monolog-bundle symfony/swiftmailer-bundle symfony/validator symfony/mailer
+RUN composer -n require annotations symfony/apache-pack symfony/security-bundle symfony/monolog-bundle symfony/swiftmailer-bundle symfony/validator symfony/mailer sensio/framework-extra-bundle
 RUN composer require symfony/maker-bundle phpunit/phpunit symfony/test-pack --dev
 RUN composer require orm
 RUN composer require symfony/orm-pack
