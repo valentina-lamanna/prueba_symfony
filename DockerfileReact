@@ -8,7 +8,7 @@ RUN npx create-react-app react-base
 
 USER root
 
-COPY site.conf /etc/apache2/sites-enabled/000-default.conf
+COPY site_react.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN service apache2 restart
 
