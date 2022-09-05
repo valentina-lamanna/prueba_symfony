@@ -1,3 +1,11 @@
+.App .h1{
+  background-color: palevioletred;
+}
+
+.App .h2{
+  background-color: pink;
+}
+
 .App {
   text-align: center;
 }

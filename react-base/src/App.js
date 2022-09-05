@@ -1,7 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import {Agregar} from './Agregar';
 
-function App() {
+export default function App(){
+  return (
+     <div>
+        <div className="col-1"></div>
+        <div class="App col-10">
+
+          <h1 class="h1">Biblioteca Valen </h1>
+          <h2 class="h2">Agregar un libro</h2>
+          <Agregar />
+          <h2 className="h2"> Cambiar un libro</h2>
+          <h2 className="h2"> Borrar un libro</h2>
+          <h2 className="h2"> Listas los libros</h2>
+        </div>
+     </div>
+  );
+}
+
+/*function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -21,5 +39,5 @@ function App() {
     </div>
   );
 }
-
 export default App;
+*/

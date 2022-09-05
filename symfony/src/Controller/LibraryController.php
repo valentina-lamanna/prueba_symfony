@@ -18,7 +18,7 @@ class LibraryController extends AbstractController
 {
 
     /**
-     *@Route("/books", name= "book_get");
+     *@Route("/book", name= "book_get");
      */
 
     public function book_list(Request $request, BookRepository  $bookRepository){
@@ -43,13 +43,16 @@ class LibraryController extends AbstractController
     }
 
     /**
-     * @Route("/book/create", name="create_book");
+     * @Route("/book/post/create", name="create_book", methods={"POST"});
      */
 
     public function createBook(Request $request, EntityManagerInterface $em){
 
+
         $book = new Book();
-        $title= $request->get('title',null);
+        $request = json_decode($request->getcontent(), true);
+        var_dump($request);
+        $title= $request['title'];
         $response = new JsonResponse();
         if(empty($title)){
             $response->setData([
