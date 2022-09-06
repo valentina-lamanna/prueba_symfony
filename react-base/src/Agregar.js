@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react';
-import './Agregar.css';
+import './Partes.css';
 import axios from 'axios';
 //import {Button} from '@material-ui/core';
 
@@ -28,13 +28,13 @@ export function Agregar(){
     }
 
 
-    const abrirCerrarModalEditar=()=>{
-        setModalEditar(!modalEditar);
-    }
-
-    const abrirCerrarModalEliminar=()=>{
-        setModalEliminar(!modalEliminar);
-    }
+    // const abrirCerrarModalEditar=()=>{
+    //     setModalEditar(!modalEditar);
+    // }
+    //
+    // const abrirCerrarModalEliminar=()=>{
+    //     setModalEliminar(!modalEliminar);
+    // }
 
     const peticionPost=async()=>{
         await axios.post(baseUrl+'/post/create', respuesta)

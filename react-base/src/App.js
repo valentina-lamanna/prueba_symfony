@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {Agregar} from './Agregar';
+import {Listar} from './Listar';
 
 export default function App(){
   return (
@@ -14,6 +15,7 @@ export default function App(){
           <h2 className="h2"> Cambiar un libro</h2>
           <h2 className="h2"> Borrar un libro</h2>
           <h2 className="h2"> Listas los libros</h2>
+           <Listar/>
         </div>
      </div>
   );
