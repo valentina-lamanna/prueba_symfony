@@ -5,7 +5,8 @@ FROM node:${NODE_VERSION}
 WORKDIR /usr/src/www/
 
 RUN npx create-react-app react-base
-
+RUN npm install @mui/material @emotion/react @emotion/styled
+RUN npm install axios
 USER root
 
 COPY site_react.conf /etc/apache2/sites-enabled/000-default.conf

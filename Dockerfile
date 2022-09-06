@@ -30,7 +30,7 @@ RUN composer require orm
 RUN composer require symfony/orm-pack
 RUN composer require doctrine/doctrine-bundle
 RUN composer require symfony/http-client
-
+RUN composer require nelmio/cors-bundle
 USER root
 
 COPY site.conf /etc/apache2/sites-enabled/000-default.conf

@@ -23,6 +23,7 @@ services:
       - ./symfony/src/Repository:/var/www/html/symfony/src/Repository
       - ./symfony/src/Security:/var/www/html/symfony/src/Security
       - ./symfony/config/packages/doctrine.yaml:/var/www/html/symfony/config/packages/doctrine.yaml/
+      - ./symfony/config/packages/nelmio_cors.yaml:/var/www/html/symfony/config/packages/nelmio_cors.yaml/
     networks:
       - backend
 
@@ -54,5 +55,5 @@ services:
       - web
       - backend
     volumes:
-      - ./react-base/src:/usr/src/www/react-base/src
-      - ./react-base/public:/usr/src/www/react-base/public
+      - ./react-base/src/:/usr/src/www/react-base/src/
+      - ./react-base/public/:/usr/src/www/react-base/public/
