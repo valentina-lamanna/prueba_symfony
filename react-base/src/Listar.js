@@ -8,9 +8,9 @@ export function Listar(){
     const peticionGet=async()=>{
         await axios.get(baseUrl)
             .then(response=>{
-                const objetc = response.data.data;
+                let objetc = response.data.data;
                 console.log(objetc)
-                objetc.map(o=> o.title);
+                objetc = objetc.map(o=> o.title);
                 setLibros(objetc)
                 //setLibros((prev) =>{return [o.title, ...prev]})
             }).catch(error=>{
@@ -25,7 +25,7 @@ export function Listar(){
             <button class="boton" onClick={()=> peticionGet()}>Listar</button>
             <button class="boton" onClick={()=> setLibros([])}>Ocultar</button>
 
-            <ul >{libros.map(libro => <li>{libro.title}</li>)}</ul>
+            <ul >{libros.map(libro => <li>{libro}</li>)}</ul>
         </div>
 
     );
