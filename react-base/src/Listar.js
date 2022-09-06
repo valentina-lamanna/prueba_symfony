@@ -12,7 +12,8 @@ export function Listar(){
                 console.log(objetc)
                 objetc = objetc.map(o=> o.title);
                 setLibros(objetc)
-                //setLibros((prev) =>{return [o.title, ...prev]})
+                console.log(libros)
+
             }).catch(error=>{
                 console.log(error);
             })
